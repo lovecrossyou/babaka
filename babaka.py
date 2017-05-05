@@ -1,21 +1,59 @@
 from flask import Flask,render_template
 import sqlite3
-from flask import g
+from flask_sqlalchemy import SQLAlchemy
 
-DATABASE = '/path/to/database.db'
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db = SQLAlchemy(app)
 
-def connect_db():
-    return sqlite3.connect(DATABASE)
 
-@app.before_request
-def before_request():
-    g.db = connect_db()
+# 定义ORM
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(120), unique=True)
 
-@app.teardown_request
-def teardown_request(exception):
-    if hasattr(g, 'db'):
-        g.db.close()
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+    def __repr__(self):
+        return '<User %r>' % self.name
+
+
+# 创建表格、插入数据
+@app.before_first_request
+def create_db():
+    # Recreate database each time for demo
+    # db.drop_all()
+    db.create_all()
+
+    admin = User('admin', 'admin@example.com')
+    db.session.add(admin)
+
+    guestes = [User('guest1', 'guest1@example.com'),
+               User('guest2', 'guest2@example.com'),
+               User('guest3', 'guest3@example.com'),
+               User('guest4', 'guest4@example.com')]
+    db.session.add_all(guestes)
+    db.session.commit()
+
+
+# 查询
+@app.route('/user')
+def users():
+    users = User.query.all()
+    return "<br>".join(["{0}: {1}".format(user.name, user.email) for user in users])
+
+
+# 查询
+@app.route('/user/<int:id>')
+def user(id):
+    user = User.query.filter_by(id=id).one()
+    return "{0}: {1}".format(user.name, user.email)
+
+
 
 
 @app.route('/')
