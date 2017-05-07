@@ -9,5 +9,5 @@
     <annotation-enable>false</annotation-enable>
     <other-services-enabled>false</other-services-enabled>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6.1 virtualenv at ~/venvdir" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.10 virtualenv at ~/venv2.7" project-jdk-type="Python SDK" />
 </project>

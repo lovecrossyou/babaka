@@ -1,5 +1,5 @@
 /**
- * ReactDOM v15.3.1
+ * ReactDOMServer v15.3.1
  *
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -13,11 +13,11 @@
 ;(function(f) {
   // CommonJS
   if (typeof exports === "object" && typeof module !== "undefined") {
-    module.exports = f(require('react'));
+    module.exports = f(require('app/templates/build/react'));
 
   // RequireJS
   } else if (typeof define === "function" && define.amd) {
-    define(['react'], f);
+    define(['app/templates/build/react'], f);
 
   // <script>
   } else {
@@ -34,9 +34,9 @@
       // see https://github.com/facebook/react/issues/3037
       g = this;
     }
-    g.ReactDOM = f(g.React);
+    g.ReactDOMServer = f(g.React);
   }
 
 })(function(React) {
-  return React.__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  return React.__SECRET_DOM_SERVER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 });
