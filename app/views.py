@@ -1,26 +1,30 @@
 #coding=utf-8
-from flask import Flask,render_template
+from flask import Flask,render_template,redirect,url_for
 from app import app
-from forms import LoginForm
+from flask import request
+
+# return redirect(url_for('show_entries'))
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html')
 
 @app.errorhandler(404)
 def not_found(error):
     return render_template('error.html'), 404
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login')
 def login():
-        form = LoginForm()
-        return render_template('login.html',
-            title = 'Sign In',
-            form = form)
+    return render_template('login.html')
+
 
 @app.route('/user', methods = ['GET', 'POST'])
 def user():
+    username = request.form['username']
+    pwd = request.form['password']
+    if(pwd=='1'):
+        return redirect(url_for('index'))
     user = {'nickname': 'Miguel'}  # 用户名
     posts = [  # 提交内容
         {
