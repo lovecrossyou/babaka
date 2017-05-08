@@ -14,29 +14,26 @@ class User(db.Model):
     email = db.Column(db.String(120), index = True, unique = True)
     addr = db.Column(db.String(120), index = True, unique = True)
     phone = db.Column(db.String(120), index = True, unique = True)
+    sex = db.Column(db.String(12), index = True, unique = True)
     role = db.Column(db.SmallInteger, default = ROLE_USER)
-
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
 # 商品表
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    itemname = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(64), index=True, unique=True)
     type = db.Column(db.String(120), index=True, unique=True)
-    size = db.Column(db.String(120), index=True, unique=True)
     def __repr__(self):
-        return '<Item %r>' % (self.itemname)
+        return '<Item %r>' % (self.name)
 
 # 记录表
 class Record(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.String(64), index=True, unique=True)
-    itemId = db.Column(db.String(120), index=True, unique=True)
     time = db.Column(db.String(120), index=True, unique=True)
-    type = db.Column(db.String(120), index=True, unique=True)
-    extra = db.Column(db.String(120), index=True, unique=True)
+    extral = db.Column(db.String(120), index=True, unique=True)
     addr = db.Column(db.String(120), index=True, unique=True)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
     def __repr__(self):
         return '<Item %r>' % (self.addr)

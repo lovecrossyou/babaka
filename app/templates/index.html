@@ -50,7 +50,8 @@
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>
                     <div class="nav navbar-nav navbar-right collapse navbar-collapse">
-                        <button type="submit" data-toggle="modal" data-target="#itemModal" class="btn btn-default" style="margin-top: 8px">
+                        <button type="submit" data-toggle="modal" data-target="#itemModal" class="btn btn-default"
+                                style="margin-top: 8px">
                             添加商品
                         </button>
                     </div>
@@ -72,21 +73,28 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="/additem" method="post">
                         <div class="form-group">
-                            姓名：<input class="form-control input-sm" type="text" placeholder="姓名">
+                            姓名：<input class="form-control input-sm" name="name" type="text" placeholder="姓名">
                         </div>
                         <div class="form-group">
-                            性别<select class="form-control input-sm">
+                            性别<select class="form-control input-sm" name="sex">
                             <option value="">男</option>
                             <option value="">女</option>
                         </select>
                         </div>
                         <div class="form-group">
-                            电话：<input class="form-control input-sm" type="text" placeholder="电话">
+                            电话：<input class="form-control input-sm" name="phone" type="text" placeholder="电话">
                         </div>
                         <div class="form-group">
-                            地址<input class="form-control input-sm" type="text" placeholder="地址">
+                            地址<input class="form-control input-sm" name="addr" type="text" placeholder="地址">
+                        </div>
+                        <div class="form-group">
+                            商品<select class="form-control input-sm" name="sex">
+                            {% for item in items %}
+                              <option value="">{{item.name}}</option>
+                            {% endfor %}
+                        </select>
                         </div>
                         型号：
                         <div class="row">
@@ -107,7 +115,7 @@
                         </div>
                         <div class="form-group">
                             <label for="name">备注</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" name="extra" rows="3"></textarea>
                         </div>
                     </form>
                 </div>

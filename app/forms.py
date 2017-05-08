@@ -8,8 +8,9 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember_me', default=False)
 
 
-class ItemForm(FlaskForm):
+class RecordForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     phone = PasswordField('password', validators=[DataRequired()])
-    itemName = PasswordField('password', validators=[DataRequired()])
-    addr = BooleanField('Remember_me', default=False)
+    item_name = PasswordField('itemName', validators=[DataRequired()])
+    type = StringField('type',default='M')
+    addr = StringField('addr', default=False)
