@@ -3,15 +3,16 @@
     {% block content %}
     <h1>Sign In</h1>
     <form action="/user" method="post" name="login">
+        {{form.hidden_tag()}}
         <p>
             Please enter your Name:<br>
-            <p><input type="text" name="username"></p>
-
+            {{form.name(size=80)}}<br>
         </p>
         <p>
             Password:<br>
-            <p><input type="text" name="password"></p>
+            {{ form.password(size=80) }}
         </p>
+        <p>{{form.remember_me}} Remember Me?</p>
         <p><input type="submit" value="Sign In"></p>
     </form>
     {% endblock %}
